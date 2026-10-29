@@ -1,0 +1,27 @@
+Background music: Spooky Dungeon
+Creator: Memoraphile @ You're Perfect Studio
+Source: https://opengameart.org/content/spooky-dungeon
+Downloaded: 2026-10-28
+Selected license: CC0 1.0 (one of the licenses offered by the creator).
+https://creativecommons.org/publicdomain/zero/1.0/
+The creator permits use in any project with or without attribution.
+File: assets/audio/dungeon.mp3 (original MP3, unchanged).
+
+Sound effects: Kenney Interface Sounds 1.0 and RPG Audio.
+Creator: Kenney / Kenney Vleugels
+Sources:
+https://opengameart.org/content/interface-sounds
+https://opengameart.org/content/50-rpg-sound-effects
+https://kenney.nl/assets/interface-sounds
+https://kenney.nl/assets/rpg-audio
+License: CC0 1.0. Original included licenses are retained alongside this file.
+Selected files are decoded to PCM16 WAV for mobile browser compatibility.
+Mapping:
+click.wav = click_001.ogg
+upgrade.wav = confirmation_002.ogg
+hit.wav = knifeSlice.ogg
+shoot.wav = cloth1.ogg
+coin.wav = handleCoins2.ogg
+start.wav = open_001.ogg
+win.wav = confirmation_004.ogg
+lose.wav = error_005.ogg

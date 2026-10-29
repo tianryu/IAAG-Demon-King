@@ -1,0 +1,668 @@
+{
+  "menuChecks": [
+    {
+      "buttons": [
+        {
+          "height": 44,
+          "id": "continue-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "new-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "exit-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-help",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-sound",
+          "inside": true
+        }
+      ],
+      "noScroll": true,
+      "viewport": [
+        320,
+        480
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "height": 44,
+          "id": "continue-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "new-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "exit-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-help",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-sound",
+          "inside": true
+        }
+      ],
+      "noScroll": true,
+      "viewport": [
+        320,
+        568
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "height": 44,
+          "id": "continue-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "new-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "exit-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-help",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-sound",
+          "inside": true
+        }
+      ],
+      "noScroll": true,
+      "viewport": [
+        360,
+        640
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "height": 53.33333587646485,
+          "id": "continue-game",
+          "inside": true
+        },
+        {
+          "height": 53.33333587646485,
+          "id": "new-game",
+          "inside": true
+        },
+        {
+          "height": 53.33333587646485,
+          "id": "exit-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-help",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-sound",
+          "inside": true
+        }
+      ],
+      "noScroll": true,
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "height": 53.33333587646485,
+          "id": "continue-game",
+          "inside": true
+        },
+        {
+          "height": 53.33333587646485,
+          "id": "new-game",
+          "inside": true
+        },
+        {
+          "height": 53.33333587646485,
+          "id": "exit-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-help",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-sound",
+          "inside": true
+        }
+      ],
+      "noScroll": true,
+      "viewport": [
+        430,
+        932
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "height": 53.33333587646485,
+          "id": "continue-game",
+          "inside": true
+        },
+        {
+          "height": 53.33333587646485,
+          "id": "new-game",
+          "inside": true
+        },
+        {
+          "height": 53.33333587646485,
+          "id": "exit-game",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-help",
+          "inside": true
+        },
+        {
+          "height": 44,
+          "id": "menu-sound",
+          "inside": true
+        }
+      ],
+      "noScroll": true,
+      "viewport": [
+        768,
+        1024
+      ]
+    }
+  ],
+  "upgradeChecks": [
+    {
+      "choices": [
+        {
+          "contentFits": true,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 44,
+          "inside": true
+        }
+      ],
+      "inside": true,
+      "noScroll": true,
+      "viewport": [
+        320,
+        480
+      ]
+    },
+    {
+      "choices": [
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        }
+      ],
+      "inside": true,
+      "noScroll": true,
+      "viewport": [
+        320,
+        568
+      ]
+    },
+    {
+      "choices": [
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 48,
+          "inside": true
+        }
+      ],
+      "inside": true,
+      "noScroll": true,
+      "viewport": [
+        360,
+        640
+      ]
+    },
+    {
+      "choices": [
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        }
+      ],
+      "inside": true,
+      "noScroll": true,
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "choices": [
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        }
+      ],
+      "inside": true,
+      "noScroll": true,
+      "viewport": [
+        430,
+        932
+      ]
+    },
+    {
+      "choices": [
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "contentFits": true,
+          "height": 58,
+          "inside": true
+        }
+      ],
+      "inside": true,
+      "noScroll": true,
+      "viewport": [
+        768,
+        1024
+      ]
+    }
+  ],
+  "battleChecks": [
+    {
+      "wave": 2,
+      "guide": 5,
+      "heroPosition": [
+        95,
+        1032
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "batch": 2,
+      "lastSpawn": {
+        "cameraTop": 775.4569864107162,
+        "positions": [
+          {
+            "x": 87,
+            "y": 679.4569864107162
+          },
+          {
+            "x": 109,
+            "y": 679.4569864107162
+          },
+          {
+            "x": 131,
+            "y": 679.4569864107162
+          },
+          {
+            "x": 153,
+            "y": 679.4569864107162
+          }
+        ]
+      },
+      "built": 5,
+      "broken": 0,
+      "battle": false,
+      "paused": true,
+      "seconds": 30.7,
+      "friends": 2,
+      "enemy": 0,
+      "queue": 3.9,
+      "remaining": 0,
+      "castle": 1300,
+      "castleMax": 1300,
+      "hero": 180,
+      "boss": false,
+      "fps": 95,
+      "power": 23,
+      "gold": 173,
+      "lord": 1,
+      "meleeLevel": 1,
+      "audio": {
+        "playing": true,
+        "seconds": 8.61,
+        "ready": 4,
+        "decoded": 8,
+        "error": 0,
+        "enabled": true
+      },
+      "animation": "lord0-walk",
+      "frames": [
+        "lord0-0",
+        "goblin-0"
+      ]
+    },
+    {
+      "wave": 3,
+      "guide": 5,
+      "heroPosition": [
+        95,
+        1032
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "batch": 2,
+      "lastSpawn": {
+        "cameraTop": 775.5178173850799,
+        "positions": [
+          {
+            "x": 87,
+            "y": 679.5178173850799
+          },
+          {
+            "x": 109,
+            "y": 679.5178173850799
+          },
+          {
+            "x": 131,
+            "y": 679.5178173850799
+          },
+          {
+            "x": 153,
+            "y": 679.5178173850799
+          },
+          {
+            "x": 87,
+            "y": 657.5178173850799
+          },
+          {
+            "x": 109,
+            "y": 657.5178173850799
+          }
+        ]
+      },
+      "built": 5,
+      "broken": 0,
+      "battle": false,
+      "paused": true,
+      "seconds": 34.6,
+      "friends": 4,
+      "enemy": 0,
+      "queue": 7,
+      "remaining": 0,
+      "castle": 1300,
+      "castleMax": 1300,
+      "hero": 180,
+      "boss": false,
+      "fps": 97,
+      "power": 23,
+      "gold": 291,
+      "lord": 1,
+      "meleeLevel": 1,
+      "audio": {
+        "playing": true,
+        "seconds": 27.09,
+        "ready": 4,
+        "decoded": 8,
+        "error": 0,
+        "enabled": true
+      },
+      "animation": "lord0-walk",
+      "frames": [
+        "lord0-0",
+        "goblin-4",
+        "goblin-0"
+      ]
+    },
+    {
+      "wave": 5,
+      "guide": 5,
+      "heroPosition": [
+        95,
+        1032
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "batch": 3,
+      "lastSpawn": {
+        "cameraTop": 775.7855239458129,
+        "positions": [
+          {
+            "x": 87,
+            "y": 679.7855239458129
+          },
+          {
+            "x": 109,
+            "y": 679.7855239458129
+          },
+          {
+            "x": 131,
+            "y": 679.7855239458129
+          },
+          {
+            "x": 153,
+            "y": 679.7855239458129
+          },
+          {
+            "x": 87,
+            "y": 657.7855239458129
+          },
+          {
+            "x": 109,
+            "y": 657.7855239458129
+          },
+          {
+            "x": 131,
+            "y": 657.7855239458129
+          },
+          {
+            "x": 153,
+            "y": 657.7855239458129
+          }
+        ]
+      },
+      "built": 5,
+      "broken": 5,
+      "battle": false,
+      "paused": true,
+      "seconds": 44.7,
+      "friends": 0,
+      "enemy": 17,
+      "queue": 0.4,
+      "remaining": 0,
+      "castle": -5,
+      "castleMax": 1300,
+      "hero": -18,
+      "boss": false,
+      "fps": 2,
+      "power": 23,
+      "gold": 303,
+      "lord": 1,
+      "meleeLevel": 1,
+      "audio": {
+        "playing": true,
+        "seconds": 9.64,
+        "ready": 4,
+        "decoded": 8,
+        "error": 0,
+        "enabled": true
+      },
+      "animation": "lord0-attack",
+      "frames": [
+        "lord0-0",
+        "shield-0",
+        "bowman-0",
+        "human-4",
+        "human-0",
+        "shield-4",
+        "shield-1",
+        "bowman-1"
+      ]
+    }
+  ],
+  "joystickDrags": [
+    {
+      "position": [
+        124,
+        1064
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "paused": false
+    },
+    {
+      "position": [
+        116,
+        1063
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "paused": false
+    },
+    {
+      "position": [
+        106,
+        1062
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "paused": false
+    },
+    {
+      "position": [
+        113,
+        1065
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "paused": false
+    }
+  ],
+  "armor320x480": {
+    "noScroll": true,
+    "fullTextFits": true
+  }
+}

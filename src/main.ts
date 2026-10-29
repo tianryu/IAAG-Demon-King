@@ -1,0 +1,10 @@
+import Phaser from 'phaser';
+import {Kingdom} from './game.ts';
+import './pixel-ui.css';
+import './generated-ui.css';
+import {prepareUIAssets} from './ui-assets.ts';
+await prepareUIAssets();
+await document.fonts.load('12px "Ark Pixel"').catch(()=>undefined);
+const shell=document.querySelector('#game-shell') as HTMLElement;
+const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:240,height:Math.round(240*shell.clientHeight/shell.clientWidth),backgroundColor:'#89b842',pixelArt:true,roundPixels:true,antialias:false,scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},input:{activePointers:2},audio:{noAudio:true},scene:[Kingdom],fps:{target:60,forceSetTimeOut:false},render:{powerPreference:'low-power'}});
+new ResizeObserver(()=>{const height=Math.round(240*shell.clientHeight/shell.clientWidth);if(game.scale&&height!==game.scale.height)game.scale.setGameSize(240,height)}).observe(shell);

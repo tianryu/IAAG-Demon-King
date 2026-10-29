@@ -1,0 +1,877 @@
+{
+  "tools": [
+    {
+      "name": "get_current_app_info",
+      "description": "[General] Get currently selected app/game information including developer_id, app_id, miniapp_id, and app name. **CRITICAL: Call this tool FIRST before executing any leaderboard operations (create_leaderboard, list_leaderboards, etc.) to verify that an app has been selected. If no app is selected, guide the user through the selection process using list_developers_and_apps and select_app.** Use this for: 1) Checking current selection before leaderboard operations, 2) Building preview links, 3) Verifying cached app. Not for H5 upload workflow.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ignore_cache": {
+            "type": "boolean",
+            "description": "If true, force refresh data from server regardless of cache TTL. Default false."
+          }
+        }
+      }
+    },
+    {
+      "name": "check_environment",
+      "description": "Check environment configuration and user authentication status. Use this to verify the current TAPTAP_MCP_ENV, signer mode, TAPTAP_MCP_MAC_TOKEN, and TAPTAP_MCP_CLIENT_ID configuration. If the user asks how to switch between production and RND, call get_environment_switch_guide.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_environment_switch_guide",
+      "description": "[Setup Guide] Explain how to switch this MCP server between production and RND environments from an MCP client configuration. Use this when the user asks to switch environment, use RND, test in RND, configure TAPTAP_MCP_ENV, or asks why RND needs TAPTAP_MCP_CLIENT_ID / TAPTAP_MCP_CLIENT_SECRET. This tool returns client config snippets and agent steps; it does not modify files by itself.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_environment": {
+            "type": "string",
+            "enum": [
+              "rnd",
+              "production"
+            ],
+            "description": "Target environment to explain. Use rnd for testing/internal preview. Default: rnd."
+          },
+          "package_tag": {
+            "type": "string",
+            "description": "Optional npm package tag or version to show in examples, such as beta, latest, or 1.21.0. Default: current package without tag."
+          }
+        }
+      }
+    },
+    {
+      "name": "start_oauth_authorization",
+      "description": "[Auth] Start OAuth 2.0 Device Code Flow to get authorization URL. Use this when: 1) User explicitly wants to authorize, 2) User needs to login or switch account, 3) Token expired or invalid. Returns a QR code URL for user to scan with TapTap App.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "complete_oauth_authorization",
+      "description": "[Auth] Complete OAuth authorization after user has scanned QR code. Call this after user confirms they have completed authorization in browser. This tool will poll for the authorization result and save the token.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "list_developers_and_apps",
+      "description": "[General App Management] List developers and apps/games for the current user, including both level games and non-level games. For large accounts, the human-readable response shows a paged preview plus total counts; call again with offset/limit to continue. **CRITICAL: Show the returned preview/counts to the user and explicitly ASK them to choose which app to use or provide app_id/name keywords - DO NOT automatically select an app without user confirmation, even if there is only one option.** Use this for: 1) Initial exploration of available apps, 2) Switching between apps, 3) General app management (not H5 upload workflow). For H5 game upload, use prepare_h5_upload instead.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of apps to show in the human-readable preview. Defaults to 40, max 100."
+          },
+          "offset": {
+            "type": "number",
+            "description": "Number of apps to skip before showing the preview. Use the suggested next offset to continue."
+          }
+        }
+      }
+    },
+    {
+      "name": "select_app",
+      "description": "[General] Select a specific developer and app to use for subsequent operations. Supports both level games and non-level games. This will cache the selection for all modules (leaderboard, H5, current-app community tools, etc.). **IMPORTANT: Only call this tool AFTER the user has explicitly confirmed which app they want to use. DO NOT call this tool automatically without user confirmation.** Use this for: 1) General app selection, 2) Switching accounts, 3) After listing with list_developers_and_apps and receiving user confirmation. For H5 upload, you can also pass developerId/appId to prepare_h5_upload directly.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "developer_id": {
+            "type": "number",
+            "description": "Developer ID to select (required)"
+          },
+          "app_id": {
+            "type": "number",
+            "description": "App/Game ID to select (required)"
+          }
+        },
+        "required": [
+          "developer_id",
+          "app_id"
+        ]
+      }
+    },
+    {
+      "name": "create_developer",
+      "description": "Create a new unverified developer identity on TapTap platform. Use this when user wants to create a new developer account.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "create_app",
+      "description": "Create a new app/game on TapTap platform. **The newly created app will be automatically selected** - no need to call select_app afterwards. Use this when user wants to create a new app.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "developerId": {
+            "type": "number",
+            "description": "The developer id of the app. Leave empty if the user has not specified a particular ID"
+          },
+          "appName": {
+            "type": "string",
+            "description": "The name of the app"
+          },
+          "genre": {
+            "type": "string",
+            "description": "Game genre (e.g. rpg, casual, action, strategy, simulation, etc.)"
+          }
+        }
+      }
+    },
+    {
+      "name": "update_app_info",
+      "description": "Update the app's information on TapTap platform including name, genre, description, icon, banner, screenshots, and more.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "developerId": {
+            "type": "number",
+            "description": "The developer id of the app"
+          },
+          "appId": {
+            "type": "number",
+            "description": "The app id of the game"
+          },
+          "appName": {
+            "type": "string",
+            "description": "The name of the app"
+          },
+          "genre": {
+            "type": "string",
+            "description": "Game genre"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the app"
+          },
+          "chattingLabel": {
+            "type": "string",
+            "description": "The name of the QQ group"
+          },
+          "chattingNumber": {
+            "type": "string",
+            "description": "The number of the QQ group"
+          },
+          "screenOrientation": {
+            "type": "number",
+            "description": "The screen orientation of the app, 1: portrait, 2: landscape"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon URL (JPG/PNG, minimum 512x512 pixels)"
+          },
+          "banner": {
+            "type": "string",
+            "description": "Banner image URL (JPG/PNG, max 4MB, minimum 1920x1080 pixels)"
+          },
+          "screenshots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Screenshot URLs (up to 4 images). Requirements: 1) Landscape: aspect ratio 8:3 to 8:5, min 1280x720px; 2) Portrait: aspect ratio 3:8 to 5:8, min 720x1280px; 3) All images must have the same aspect ratio as the first one."
+          },
+          "trialNote": {
+            "type": "string",
+            "description": "Developer notes for review (trial_note)"
+          }
+        },
+        "required": [
+          "developerId",
+          "appId"
+        ]
+      }
+    },
+    {
+      "name": "get_app_status",
+      "description": "Get the review status of an app/game. Use this to check if the app is published, under review, or rejected.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "type": "number",
+            "description": "App ID to check status for"
+          },
+          "ignore_cache": {
+            "type": "boolean",
+            "description": "If true, force refresh data from server regardless of cache TTL. Default false."
+          }
+        },
+        "required": [
+          "app_id"
+        ]
+      }
+    },
+    {
+      "name": "upload_image",
+      "description": "Upload an image to TapTap server and get a URL. Use this to upload icon, banner, or screenshots before calling update_app_info. Accepts either a local file path or base64 encoded image data.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Local file path to the image (relative to workspace or absolute). Supports JPG, PNG, GIF, WebP."
+          },
+          "base64Data": {
+            "type": "string",
+            "description": "Base64 encoded image data. Can include data URL prefix (e.g., \"data:image/png;base64,...\") or be raw base64 string."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Optional filename for the uploaded image. If not provided, will be derived from filePath or default to \"image.png\"."
+          }
+        }
+      }
+    },
+    {
+      "name": "clear_auth_data",
+      "description": "Clear all cached authentication data and app selection. Use this when: 1) MAC Token expired or invalid, 2) Want to switch accounts, 3) Need to reset authentication. This will clear both OAuth token file and app cache.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "clear_token": {
+            "type": "boolean",
+            "description": "Clear OAuth token file (default: true)"
+          },
+          "clear_cache": {
+            "type": "boolean",
+            "description": "Clear app selection cache (default: true)"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_current_app_store_overview",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected. If not, guide user through: 1) Call list_developers_and_apps, 2) Show list to user and ASK them to choose, 3) Call select_app with user confirmation. Get store overview metrics for the currently selected app, including page views, downloads, reserves, download requests, and daily trend data for an optional date range.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Optional start date in YYYY-MM-DD format."
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Optional end date in YYYY-MM-DD format."
+          }
+        }
+      }
+    },
+    {
+      "name": "get_current_app_review_overview",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS verify the selected app context. Get review overview metrics for the currently selected app, including rating summary, rating score, positive/neutral/negative review counts, and trend data for an optional date range.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Optional start date in YYYY-MM-DD format."
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Optional end date in YYYY-MM-DD format."
+          }
+        }
+      }
+    },
+    {
+      "name": "get_current_app_community_overview",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS verify the selected app context. Get community overview metrics for the currently selected app, including topic count, favorite count, page views, feed count, and trend data for an optional date range.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Optional start date in YYYY-MM-DD format."
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Optional end date in YYYY-MM-DD format."
+          }
+        }
+      }
+    },
+    {
+      "name": "get_current_app_store_snapshot",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected. If not, guide user through: 1) Call list_developers_and_apps, 2) Show list to user and ASK them to choose, 3) Call select_app with user confirmation. Get a result-oriented store snapshot for the currently selected app, including app card info, current stats, rating summary, 30-day rating trend, version status, and visibility.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_current_app_forum_contents",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Read forum contents for the currently selected app only. Use this to inspect the game forum feed before summarizing community topics. This tool is scoped to the selected app and MUST NOT be used for cross-game browsing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Forum flow type. Default: \"feed\"."
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sort mode. Default: \"default\"."
+          },
+          "from": {
+            "type": "number",
+            "description": "Pagination start offset. Default: 0."
+          },
+          "limit": {
+            "type": "number",
+            "description": "Page size. Default: 10, max: 20.",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "group_label_id": {
+            "type": "number",
+            "description": "Optional forum sub-group label ID."
+          }
+        }
+      }
+    },
+    {
+      "name": "get_current_app_reviews",
+      "description": "**PREREQUISITE: An app MUST be selected first.** List reviews for the currently selected app only. Use this before like/reply actions so the user can inspect the review list and confirm the target review_id. Supports sort, pagination, collapsed reviews, and platform filter.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort": {
+            "type": "string",
+            "description": "Review sort mode. Default: \"new\".",
+            "enum": [
+              "new",
+              "hot",
+              "spent"
+            ]
+          },
+          "from": {
+            "type": "number",
+            "description": "Pagination start offset. Default: 0."
+          },
+          "limit": {
+            "type": "number",
+            "description": "Page size. Default: 10, max: 10.",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "is_collapsed": {
+            "type": "boolean",
+            "description": "Whether to query collapsed reviews."
+          },
+          "filter_platform": {
+            "type": "string",
+            "description": "Optional platform filter.",
+            "enum": [
+              "mobile",
+              "pc",
+              "web"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "like_current_app_review",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Like a specific review for the currently selected app. **IMPORTANT: Before calling this tool, first identify the target review by calling get_current_app_reviews or by showing the exact review to the user, then ASK for confirmation. DO NOT guess the target review_id.** This tool only supports a single review like action.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "review_id": {
+            "type": "number",
+            "description": "Target review ID to like."
+          }
+        },
+        "required": [
+          "review_id"
+        ]
+      }
+    },
+    {
+      "name": "reply_current_app_review",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Reply to a specific review as the official app identity. **CRITICAL: Always make sure the user has reviewed and approved the reply content before calling this tool.** The server applies risk grading: LOW can be sent directly, MEDIUM/HIGH usually return a draft and need explicit follow-up confirmation. Only set confirm_high_risk=true after the user explicitly approves sending the risky draft.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "review_id": {
+            "type": "number",
+            "description": "Target review ID to reply to."
+          },
+          "contents": {
+            "type": "string",
+            "description": "Official reply content to send."
+          },
+          "reply_comment_id": {
+            "type": "number",
+            "description": "Optional comment ID if replying to a specific review reply."
+          },
+          "confirm_high_risk": {
+            "type": "boolean",
+            "description": "Only set to true after the user explicitly confirms sending a MEDIUM/HIGH risk draft."
+          }
+        },
+        "required": [
+          "review_id",
+          "contents"
+        ]
+      }
+    },
+    {
+      "name": "get_leaderboard_integration_guide",
+      "description": "⭐ READ THIS FIRST when user wants to integrate/接入/setup/add leaderboard功能. Returns complete step-by-step workflow. CRITICAL: Emphasizes NO SDK installation - tap is global object. Call this BEFORE making any implementation plans.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "create_leaderboard",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected. If not, guide user through: 1) Call list_developers_and_apps, 2) Show list to user and ASK them to choose, 3) Call select_app with user's choice. Create a new leaderboard on TapTap server. Auto-fetches developer_id and app_id from selected app. Returns leaderboard_id for client-side APIs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Leaderboard title/name (REQUIRED)"
+          },
+          "period_type": {
+            "type": "string",
+            "description": "Reset period: \"always\" (default), \"daily\", \"weekly\", \"monthly\"",
+            "enum": [
+              "always",
+              "daily",
+              "weekly",
+              "monthly"
+            ]
+          },
+          "score_type": {
+            "type": "string",
+            "description": "Score type: \"numeric\" (default), \"time\"",
+            "enum": [
+              "numeric",
+              "time"
+            ]
+          },
+          "score_order": {
+            "type": "string",
+            "description": "Score order: \"desc\" (high to low, default), \"asc\" (low to high)",
+            "enum": [
+              "desc",
+              "asc"
+            ]
+          },
+          "calc_type": {
+            "type": "string",
+            "description": "Calculation type: \"sum\" (default), \"best\", \"latest\"",
+            "enum": [
+              "sum",
+              "best",
+              "latest"
+            ]
+          },
+          "display_limit": {
+            "type": "number",
+            "description": "Display limit (optional, default 100)"
+          },
+          "period_time": {
+            "type": "string",
+            "description": "Reset time like \"08:00:00\" (required if period_type is not \"always\")"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "list_leaderboards",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected. If not, guide user through: 1) Call list_developers_and_apps, 2) Show list to user and ASK them to choose, 3) Call select_app with user's choice. List all leaderboards for currently selected app. **IMPORTANT: When multiple leaderboards exist, ALWAYS show the complete list to the user and explicitly ASK them which one they want to use - DO NOT automatically choose a leaderboard without user confirmation.**",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "description": "Page number (optional, default 1)"
+          },
+          "page_size": {
+            "type": "number",
+            "description": "Page size (optional, default 10)"
+          }
+        }
+      }
+    },
+    {
+      "name": "publish_leaderboard",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Publish leaderboard or set to whitelist-only mode. Before calling this tool, ensure an app is selected by calling get_current_app_info. **IMPORTANT: If the leaderboard ID is not clear, call list_leaderboards first, show the list to the user, and ASK them which leaderboard they want to publish - DO NOT automatically select a leaderboard.**",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Leaderboard database ID (required)"
+          },
+          "publish": {
+            "type": "boolean",
+            "description": "true=publish (public), false=whitelist only (required)"
+          }
+        },
+        "required": [
+          "id",
+          "publish"
+        ]
+      }
+    },
+    {
+      "name": "get_user_leaderboard_scores",
+      "description": "Get user leaderboard scores. Requires MAC Token authentication.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "leaderboardId": {
+            "type": "string",
+            "description": "Leaderboard ID"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Max entries (default 10)"
+          }
+        }
+      }
+    },
+    {
+      "name": "prepare_h5_upload",
+      "description": "\n        [H5 Game Upload Workflow - Step 1]\n        Use this tool when user wants to publish/upload/deploy H5 game ('发布', '上传', '部署').\n\n        **PREREQUISITE: An app MUST be selected first.**\n        Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected.\n        If not selected, guide user through:\n        1) Call list_developers_and_apps to show available apps\n        2) Show list to user and ASK them to choose\n        3) Call select_app with user's choice\n        4) Then call this tool\n\n        This tool will:\n        1. Verify the game project directory (must contain index.html)\n        2. Read app info from cache (selected via select_app)\n        3. Return confirmation info for user to review\n\n        After gathering info, use upload_h5_game to upload the game.\n      ",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamePath": {
+            "type": "string",
+            "description": "**MUST be a relative path** to the H5 game build output directory.\n\n✅ Correct: \"dist\", \"build\", \"output\", \".\"\n❌ Wrong: \"/workspace/dist\", \"/tmp/build\" (absolute paths not allowed)\n\n**BEHAVIOR:**\n- If user specifies directory, pass that relative path\n- If user doesn't specify, ASK: \"请问游戏构建产物在哪个目录？（如 dist、build）\"\n- If index.html is in project root, pass \".\" or leave empty\n- DO NOT guess - confirm with user if unsure"
+          },
+          "genre": {
+            "type": "string",
+            "description": "If user provides a specific game genre, use it directly.\n                 If user is unsure or doesn't specify, analyze the code files, game mechanics, UI elements, and gameplay features in the project directory to determine the most appropriate game genre.\n                 Available genres keys: rpg, casual, action, strategy, simulation, trivia, arcade, adventure, card, sports, racing, puzzle, educational, music, word, board, and the chinese name of the genre is 角色扮演, 休闲, 动作, 策略, 模拟, 益智, 街机, 冒险, 卡牌, 体育, 竞速, 知识问答, 教育, 音乐, 文字, 桌面和棋类.\n                 When analyzing, consider game rules, player interactions, visual elements, and core gameplay loops.\n                 If still uncertain after analysis, default to 'casual' as fallback."
+          }
+        }
+      }
+    },
+    {
+      "name": "upload_h5_game",
+      "description": "\n        [H5 Game Upload Workflow - Step 2]\n        Upload the H5 game to TapTap platform after user confirms info from prepare_h5_upload.\n\n        **PREREQUISITE: An app MUST be selected first.**\n        This tool reads app info from cache (selected via select_app or create_app).\n        If no app is selected, it will return an error guiding user to select one first.\n\n        **SCREEN ORIENTATION:**\n        If the selected app has no screen orientation, this tool will pause before uploading.\n        Ask the user to choose 1 (portrait) or 2 (landscape), then call this tool again with\n        screenOrientation. DO NOT guess the orientation.\n      ",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamePath": {
+            "type": "string",
+            "description": "**MUST be a relative path** to the H5 game build output directory.\n\n✅ Correct: \"dist\", \"build\", \"output\", \".\"\n❌ Wrong: \"/workspace/dist\", \"/tmp/build\" (absolute paths not allowed)\n\nUse the same path confirmed in prepare_h5_upload step."
+          },
+          "genre": {
+            "type": "string",
+            "description": "If user provides a specific game genre, use it directly.\n                 If user is unsure or doesn't specify, analyze the code files, game mechanics, UI elements, and gameplay features in the project directory to determine the most appropriate game genre.\n                 Available genres keys: rpg, casual, action, strategy, simulation, trivia, arcade, adventure, card, sports, racing, puzzle, educational, music, word, board, and the chinese name of the genre is 角色扮演, 休闲, 动作, 策略, 模拟, 益智, 街机, 冒险, 卡牌, 体育, 竞速, 知识问答, 教育, 音乐, 文字, 桌面和棋类.\n                 When analyzing, consider game rules, player interactions, visual elements, and core gameplay loops.\n                 If still uncertain after analysis, default to 'casual' as fallback."
+          },
+          "screenOrientation": {
+            "type": "number",
+            "enum": [
+              1,
+              2
+            ],
+            "description": "Game screen orientation: 1 = portrait, 2 = landscape. Provide this after the upload tool reports that the selected app has no orientation. Ask the user to choose; do not guess."
+          }
+        }
+      }
+    },
+    {
+      "name": "get_debug_feedbacks",
+      "description": "\n        [H5 Debug Workflow]\n        Pull user debug feedback records for the selected app, download artifacts (screenshots/logs),\n        and generate AI-ready debug context files.\n\n        **PREREQUISITE: An app MUST be selected first.**\n        Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected.\n        If not selected, guide user through:\n        1) Call list_developers_and_apps to show available apps\n        2) Show list to user and ASK them to choose\n        3) Call select_app with user's choice\n        4) Then call this tool\n\n        **DEFAULT BEHAVIOR:**\n        - fetch_and_mark_processed defaults to true\n        - download_assets defaults to true\n        - downloaded files are saved under logs/feed_back/feedback_{id}/\n\n        **CALLING POLICY FOR AGENTS:**\n        - If user says \"拉取/查看反馈\" without explicit read-only intent, DO NOT pass fetch_and_mark_processed.\n          Let default behavior (true) apply.\n        - ONLY pass fetch_and_mark_processed=false when user explicitly requests read-only\n          behavior (e.g. \"只查看，不标记处理\").\n        - When user provides a moment_id (or a TapTap moment URL), pass it via moment_id param to fetch a single feedback.\n          In this case, fetch_and_mark_processed is automatically forced to false (read-only single lookup).\n      ",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "How many feedback records to pull (1-10, default 3)."
+          },
+          "status": {
+            "type": "number",
+            "description": "Feedback status filter:\n- 0: all\n- 1: unprocessed\n- 2: processed\n\nWhen fetch_and_mark_processed=true, status filter will be ignored by server."
+          },
+          "fetch_and_mark_processed": {
+            "type": "boolean",
+            "description": "Pull unprocessed records and mark them processed on server. Default true. Set false only for explicit read-only requests. When true, status is ignored."
+          },
+          "download_assets": {
+            "type": "boolean",
+            "description": "Whether to download feedback JSON/screenshot/log files to local workspace. Default true."
+          },
+          "moment_id": {
+            "type": "string",
+            "description": "Optional. Filter to a single feedback by moment_id. Accepts either a pure numeric ID (e.g. \"795659996946762795\") or a full TapTap moment URL (e.g. \"https://www.taptap.cn/moment/795659996946762795\") — the handler will extract the numeric ID. When provided, server returns only the matching record, and fetch_and_mark_processed is forced to false (read-only single lookup). MUST be passed as a string to preserve precision for large IDs."
+          }
+        }
+      }
+    },
+    {
+      "name": "get_vibrate_integration_guide",
+      "description": "⭐ USE THIS TOOL FIRST when user asks about vibrate/振动/震动/vibration/haptic feedback/触觉反馈 functionality, wants to integrate/接入/setup/add/使用 vibrate功能, searches for vibrate API documentation/文档/教程/示例, asks how to use vibrate/vibrateShort/vibrateLong, needs vibration code examples/代码示例, or asks about vibration intensity/震动强度/震动类型. Returns complete step-by-step workflow. CRITICAL: Emphasizes NO SDK installation - tap is global object. Call this BEFORE making any implementation plans.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_multiplayer_guide",
+      "description": "⭐ PRIMARY entry for multiplayer/多人联机/联网游戏.\n\nCORE CONCEPT: Player A does action → sendData() → Other players receive in onDataReceived() → They see it happen.\n\nReturns: Complete guide with code template. Includes: data sync basics, PlayerId usage, sync strategies, protocol guidelines, API-event relationships, built-in debug logger.\n\n🔧 Built-in features:\n- MultiplayerManager template (complete, production-ready)\n- Debug logger system (on-screen logs, call get_debug_logger for setup)\n- Error codes reference (23 error codes)\n- Connection keep-alive\n- Message size validation (2048 bytes)\n\nUse when: User wants players to play together, sync game data, see each other's actions.\n\nPerfect for ANY creative H5 game. No game-specific logic needed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_code_template",
+      "description": "Get complete MultiplayerManager.js template (350+ lines).\n\nCore methods:\n- 📤 sendData(data) → Send your action to others\n- 📥 onDataReceived(data, fromId) → Receive others' actions\n- syncPosition(x, y) → Optimized position sync\n- init() → Returns playerId (MUST save it!)\n- matchRoom() → Match or create room\n\nFeatures: Built-in rate limiting (10/sec), field compatibility, offline fallback, change detection.\n\nCopy-paste ready. Use for ANY game type.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_api_event_table",
+      "description": "⚠️ CRITICAL - API-to-Event relationship table.\n\nShows: Which API call triggers which event, and WHO receives it.\n\nKey relationships AI must understand:\n- matchRoom() → You: get roomInfo, Others: get playerEnterRoom event\n- sendCustomMessage() → You: NO event, Others: get onCustomMessage event\n- updatePlayerCustomProperties() → ALL players (including you): get event\n\nThis relationship is hard to show in code template, so use this table when implementing event handlers.\n\nUse when: Implementing multiplayer logic, debugging \"why no event triggered?\"",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_protocol_template",
+      "description": "⚠️ CRITICAL - Communication protocol template to ensure consistency.\n\nPURPOSE: Prevent AI from using different protocols for different features.\n\nCOMMON MISTAKE (AI often does this):\n- Feature 1: { type: 'click', x, y }\n- Feature 2: { action: 'move', pos: {x, y} }  ❌ Inconsistent!\n\nSOLUTION: Define protocol ONCE at project start, reuse for ALL features:\n- All messages: { type: string, ...data }\n- Consistent structure across all game features\n\nUse when: Starting multiplayer implementation, adding new interaction types.\n\nThis is a MAJOR source of bugs - keep protocol consistent!",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_extended_apis",
+      "description": "🟡 Get extended APIs quick reference: createRoom, getRoomList, joinRoom, kickRoomPlayer, disconnect, updatePlayerCustomStatus. ONLY use when user explicitly requests room list UI, custom room creation, friend invitation, or player kick functionality. These are OPTIONAL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_player_id_guide",
+      "description": "🔑 Get Player ID usage guide: how to get local player ID from connect(), check \"is this me?\", handle field name differences (fromPlayerId/playerId/id). Use when implementing player identification logic or debugging player-related issues.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_sync_strategy",
+      "description": "🎮 Get synchronization strategy guide for joystick/WASD controls and click-based movement. Includes timer-based sync pattern (100ms interval) and change detection. Use when implementing position synchronization or continuous input handling.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "generate_local_guide",
+      "description": "📄 Generate MULTIPLAYER_GUIDE.md for user project root. Creates persistent reference with API rate limits, playerId rules, data structures. Enables context persistence across conversations. Use at project start.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_api_data_structures",
+      "description": "📊 Get complete API return value structures and event callback data structures. Includes all core APIs (connect, matchRoom, sendCustomMessage, etc) and events (playerEnterRoom, onCustomMessage, etc). Use when implementing API calls to avoid guessing data structures.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "generate_multiplayer_code",
+      "description": "🎯 One-click: Generate complete multiplayer files ready to save.\n\nGenerates:\n1. js/MultiplayerManager.js (complete template with comments)\n2. MULTIPLAYER_GUIDE.md (quick reference for project)\n\nReturns: File paths and contents, ready to save.\n\nUse when: User wants quick setup, or says \"generate multiplayer code/生成多人联机代码\".",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "diagnose_multiplayer_issues",
+      "description": "🔍 Diagnose common multiplayer issues.\n\nUse when user reports:\n- Players not visible / 看不到其他玩家\n- Position not syncing / 位置不同步\n- Connection failed / 连接失败\n- Data not received / 收不到数据\n\nReturns: Checklist with solutions for each issue.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "check_multiplayer_code",
+      "description": "✅ Check multiplayer code before deployment.\n\nDetects:\n- Missing rate limiting\n- Wrong field names (playerId vs id)\n- Missing playerId save\n- Uninitialized remote players\n- Protocol inconsistency\n\nUse when: Before finalizing code, or when debugging.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The multiplayer code to check"
+          }
+        },
+        "required": [
+          "code"
+        ]
+      }
+    },
+    {
+      "name": "get_debug_logger",
+      "description": "🔧 Get on-screen debug logger / 屏幕日志系统 / 调试日志工具.\n\nCALL THIS WHEN user says:\n- \"添加日志工具\" / \"add logger\" / \"add debug tool\"\n- \"屏幕日志\" / \"screen log\" / \"on-screen log\"\n- \"看不到日志\" / \"can't see logs\" / \"无法查看控制台\"\n- \"移动端调试\" / \"mobile debug\" / \"手机测试\"\n- \"调试工具\" / \"debug tool\" / \"debugging\"\n- \"显示日志在屏幕上\" / \"show logs on screen\"\n\nFeatures:\n- 右下角绿色小圆点 → 点击显示日志面板\n- 日志分级 (log/warn/error)，自动去重\n- 支持复制日志，自动拦截 console\n- 移动端友好，非程序员也能用\n\nReturns: DebugLogger setup guide + usage. AI can copy files from /Volumes/Q/MiniGame/Mcp/Tank/DebugLogger to project.\n\nPerfect for: H5 games, mobile testing, non-technical users.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_share_integration_guide",
+      "description": "⭐ READ THIS FIRST when user wants to integrate/接入/setup/add share功能. Returns complete step-by-step workflow for TapTap Share API. CRITICAL: Emphasizes NO SDK installation - tap is global object. Use this BEFORE making any implementation plans. Covers: 1) Server-side template creation workflow, 2) Client-side API usage (tap.showShareboard, tap.onShareMessage), 3) Template code mapping, 4) Audit status checking.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "create_share_template",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected. If not, guide user through: 1) Call list_developers_and_apps, 2) Show list to user and ASK them to choose, 3) Call select_app with user's choice. Create a new share template on TapTap server for minigame sharing feature. Auto-fetches developer_id and app_id from selected app. Returns template_code which is used in client-side tap.showShareboard() API. **IMPORTANT: contents field has strict 21 UTF-8 character limit (including spaces and punctuation). Template needs audit approval (status=1) before use.**",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "developer_id": {
+            "type": "number",
+            "description": "Developer ID (optional, will be auto-filled from context or cache)"
+          },
+          "app_id": {
+            "type": "number",
+            "description": "App ID (optional, will be auto-filled from context or cache)"
+          },
+          "contents": {
+            "type": "string",
+            "description": "Share description content (REQUIRED). STRICT LIMIT: max 21 UTF-8 characters including spaces and punctuation. Example: \"分享游戏获得奖励\" (12 chars). This is the text shown in share panel."
+          },
+          "remark": {
+            "type": "string",
+            "description": "Internal remark/note for template management (REQUIRED, max 100 characters). Not shown to users, only for developer reference. Used to identify and manage templates."
+          }
+        },
+        "required": [
+          "contents",
+          "remark"
+        ]
+      }
+    },
+    {
+      "name": "list_share_templates",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ALWAYS call get_current_app_info to verify an app is selected. If not, guide user through: 1) Call list_developers_and_apps, 2) Show list to user and ASK them to choose, 3) Call select_app with user's choice. List all share templates for currently selected app. Auto-fetches developer_id and app_id. Shows template status (0=pending, 1=approved, 2=rejected, 3=audit error). **IMPORTANT: When multiple templates exist, ALWAYS show the complete list to the user and explicitly ASK them which one they want to use - DO NOT automatically choose a template without user confirmation.** NOTE: To modify or delete templates, please use TapTap Developer Center (https://developer.taptap.cn).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "developer_id": {
+            "type": "number",
+            "description": "Developer ID (optional, will be auto-filled from context or cache)"
+          },
+          "app_id": {
+            "type": "number",
+            "description": "App ID (optional, will be auto-filled from context or cache)"
+          },
+          "page": {
+            "type": "number",
+            "description": "Page number for pagination (optional, default 1, starts from 1)"
+          },
+          "page_size": {
+            "type": "number",
+            "description": "Number of items per page (optional, default 10)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_share_template_info",
+      "description": "**PREREQUISITE: An app MUST be selected first.** Before calling this tool, ensure an app is selected by calling get_current_app_info. **IMPORTANT: If the template_code is not clear, call list_share_templates first, show the list to the user, and ASK them which template they want to query - DO NOT automatically select a template.** Get detailed information about a specific share template by template_code. Use this to: 1) Check audit status before using template in client, 2) Get template_code details for tap.showShareboard() API, 3) View audit reason if rejected, 4) Verify template is approved (status=1) before implementation. Returns full template info including status, contents, remark, and audit_reason. NOTE: To modify or delete templates, please use TapTap Developer Center (https://developer.taptap.cn).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "developer_id": {
+            "type": "number",
+            "description": "Developer ID (optional, will be auto-filled from context or cache)"
+          },
+          "app_id": {
+            "type": "number",
+            "description": "App ID (optional, will be auto-filled from context or cache)"
+          },
+          "template_code": {
+            "type": "string",
+            "description": "Template code (REQUIRED). This is the identifier returned by create_share_template. Used as templateId parameter in client-side tap.showShareboard({ templateId: \"...\" }) API."
+          }
+        },
+        "required": [
+          "template_code"
+        ]
+      }
+    },
+    {
+      "name": "search_share_docs",
+      "description": "[Documentation] Search Share API documentation by keyword. Use this when: 1) User asks about share API usage, 2) Need to find specific API documentation (tap.showShareboard, tap.onShareMessage, etc.), 3) Looking for code examples or integration guides. Returns relevant documentation snippets and suggestions.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search keyword (REQUIRED). Examples: \"showShareboard\", \"onShareMessage\", \"share panel\", \"分享\", \"template\", etc."
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "get_cloud_save_integration_guide",
+      "description": "Get complete Cloud Save integration workflow guide for TapTap Minigame and H5 games.\n\nThis tool provides:\n- Complete workflow for saving and loading game data to/from cloud\n- File system operations (writeFile, readFile) for local storage\n- Cloud archive operations (create, update, delete, list)\n- Error codes and troubleshooting guide\n- Best practices and code examples\n\nUse this tool when user asks about:\n- How to implement cloud save in their game\n- How to save/load game progress to cloud\n- Cloud save architecture and workflow\n- File system operations for save data",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "get_ads_integration_workflow",
+      "description": "⭐ READ THIS FIRST for TapTap Minigame/H5 ads/广告/ad integration/接入广告/monetization/变现/rewarded video/激励视频/interstitial/插屏/banner requests, or when the product scope is not yet clear.\nDo not call this tool when the user or project is already known to be TapTap Maker/UrhoX.\n\nReturns the complete step-by-step ads integration workflow.\nCall this BEFORE making any implementation plans or writing any ad code.\n\n**CRITICAL: For ANY TapTap Minigame/H5 ads-related request, this workflow MUST be followed.**\nThe workflow will guide you through:\n1. App selection check\n2. Server-side monetization status and ad configuration verification (MANDATORY before integration)\n3. Integration code generation (only when status conditions are met)\n\n**MCP PRODUCT SCOPE:**\n- This MCP only supports TapTap Minigame/H5 ad integration using the global tap JavaScript APIs.\n- It must not be used for TapTap Maker/UrhoX projects.\n- If the user or project is Maker/UrhoX, stop and tell the user to switch to the Maker MCP.\n- Do not mix tools, app context, ad configuration, IDs, or runtime APIs between these two MCPs.\n\n**AD SPACE ID OWNERSHIP:**\n- The latest check_ads_status result for the current selected app is the only source of its ad space ID.\n- MUST NOT ask the user for an ad space ID or suggest manually copying one from a console.\n- MUST NOT accept a user-provided ID as a fallback.\n- MUST NOT reuse an ID from another app, previous output, or existing sample code.\n- If multiple apps return the same ID, report only that server fact; do not infer whether the ID is app-specific or shared.\n- If automatic lookup cannot return a usable ID, stop and follow the tool's recovery guidance.\n\nThis tool has NO prerequisites - call it immediately for an in-scope or not-yet-classified ads topic.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "check_ads_status",
+      "description": "[Step 2 of Ads Workflow] Check server-side ads monetization status and cache the current selected app's ad space ID.\n\n**PREREQUISITE: An app MUST be selected first.**\nBefore calling this tool, ALWAYS call get_current_app_info to verify\nan app is selected. If not, guide user through app selection process.\n\nCall this tool after confirming the selected app, and call it again when the user explicitly asks\nto refresh status after completing an activation step. Do not repeatedly poll it in a loop.\n\nThis tool queries the server, updates local cache, and returns:\n- Business status: 0=未开通 | 1=已生效 | 2=账号已被封禁\n- Ad space ID (space_id) - cached when status is \"已生效\"\n- Guidance URL for activation (if needed)\n\nStatus 1 and a valid space_id allow code generation, but do not prove window.tap injection,\nad inventory, package upload correctness, or successful playback on a device.\n\n**CRITICAL - Dual condition for proceeding to Step 3:**\nBoth conditions MUST be met simultaneously:\n1. Status must be \"已生效\" (status === 1)\n2. space_id must be valid (non-empty string)\nIf status is 1 but space_id is empty → server-side issue, tell user to retry later.\n\n**MCP PRODUCT SCOPE:**\n- This MCP only supports TapTap Minigame/H5 ad integration using the global tap JavaScript APIs.\n- It must not be used for TapTap Maker/UrhoX projects.\n- If the user or project is Maker/UrhoX, stop and tell the user to switch to the Maker MCP.\n- Do not mix tools, app context, ad configuration, IDs, or runtime APIs between these two MCPs.\n\n**AD SPACE ID OWNERSHIP:**\n- The latest check_ads_status result for the current selected app is the only source of its ad space ID.\n- MUST NOT ask the user for an ad space ID or suggest manually copying one from a console.\n- MUST NOT accept a user-provided ID as a fallback.\n- MUST NOT reuse an ID from another app, previous output, or existing sample code.\n- If multiple apps return the same ID, report only that server fact; do not infer whether the ID is app-specific or shared.\n- If automatic lookup cannot return a usable ID, stop and follow the tool's recovery guidance.\n\n**Status 0:** Tell user they can say \"重新检查广告状态\" to refresh after completing activation.\n**Status 2 (已封禁):** DO NOT proceed with any integration steps. Immediately inform user.\n**Missing screen orientation:** Ask the user to choose 1 (portrait) or 2 (landscape), call\nupdate_app_info with the current developerId/appId and their chosen screenOrientation, then call\ncheck_ads_status again. DO NOT guess the orientation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_ad_integration_guide",
+      "description": "[Step 3 of Ads Workflow] Get the TapTap Minigame/H5 ads integration guide with the current selected app's automatically resolved ad space ID.\n\n**PREREQUISITES (both MUST be met before calling):**\n1. check_ads_status has been called and returned status \"已生效\" (1)\n2. A valid space_id was cached by check_ads_status\n\nIf either condition is not met, this tool will return an error with guidance.\n\nThis tool reads the cached space_id and generates:\n- Complete AdManager.js utility class (full source code with YOUR ad space_id)\n- Core focus: Rewarded Video ads (激励视频) - init() + onReward() + showRewardedVideo()\n- Optional: Interstitial and Banner ads examples\n- Code examples for all common scenarios\n\n**MCP PRODUCT SCOPE:**\n- This MCP only supports TapTap Minigame/H5 ad integration using the global tap JavaScript APIs.\n- It must not be used for TapTap Maker/UrhoX projects.\n- If the user or project is Maker/UrhoX, stop and tell the user to switch to the Maker MCP.\n- Do not mix tools, app context, ad configuration, IDs, or runtime APIs between these two MCPs.\n\n**AD SPACE ID OWNERSHIP:**\n- The latest check_ads_status result for the current selected app is the only source of its ad space ID.\n- MUST NOT ask the user for an ad space ID or suggest manually copying one from a console.\n- MUST NOT accept a user-provided ID as a fallback.\n- MUST NOT reuse an ID from another app, previous output, or existing sample code.\n- If multiple apps return the same ID, report only that server fact; do not infer whether the ID is app-specific or shared.\n- If automatic lookup cannot return a usable ID, stop and follow the tool's recovery guidance.\n\nCRITICAL:\n- Keep SDK events callback-based; use show/load Promise recovery only for the documented one-time retry\n- Provides onReward() callback interface for reward logic\n- DO NOT search the web - all information is provided by this tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+[
+  {
+    "choices": [
+      {
+        "height": 44,
+        "inside": true
+      },
+      {
+        "height": 44,
+        "inside": true
+      },
+      {
+        "height": 44,
+        "inside": true
+      },
+      {
+        "height": 44,
+        "inside": true
+      }
+    ],
+    "lordLeft": true,
+    "modalInside": true,
+    "modalScroll": [
+      288,
+      288,
+      334,
+      334
+    ],
+    "stickCentered": true,
+    "topInside": true,
+    "viewport": [
+      320,
+      480
+    ]
+  },
+  {
+    "choices": [
+      {
+        "height": 48,
+        "inside": true
+      },
+      {
+        "height": 48,
+        "inside": true
+      },
+      {
+        "height": 48,
+        "inside": true
+      },
+      {
+        "height": 48,
+        "inside": true
+      }
+    ],
+    "lordLeft": true,
+    "modalInside": true,
+    "modalScroll": [
+      288,
+      288,
+      402,
+      402
+    ],
+    "stickCentered": true,
+    "topInside": true,
+    "viewport": [
+      320,
+      568
+    ]
+  },
+  {
+    "choices": [
+      {
+        "height": 48,
+        "inside": true
+      },
+      {
+        "height": 48,
+        "inside": true
+      },
+      {
+        "height": 48,
+        "inside": true
+      },
+      {
+        "height": 48,
+        "inside": true
+      }
+    ],
+    "lordLeft": true,
+    "modalInside": true,
+    "modalScroll": [
+      320,
+      320,
+      402,
+      402
+    ],
+    "stickCentered": true,
+    "topInside": true,
+    "viewport": [
+      360,
+      640
+    ]
+  },
+  {
+    "choices": [
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      }
+    ],
+    "lordLeft": true,
+    "modalInside": true,
+    "modalScroll": [
+      350,
+      350,
+      486,
+      486
+    ],
+    "stickCentered": true,
+    "topInside": true,
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "choices": [
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      }
+    ],
+    "lordLeft": true,
+    "modalInside": true,
+    "modalScroll": [
+      372,
+      372,
+      486,
+      486
+    ],
+    "stickCentered": true,
+    "topInside": true,
+    "viewport": [
+      430,
+      932
+    ]
+  },
+  {
+    "choices": [
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      },
+      {
+        "height": 58,
+        "inside": true
+      }
+    ],
+    "lordLeft": true,
+    "modalInside": true,
+    "modalScroll": [
+      372,
+      372,
+      486,
+      486
+    ],
+    "stickCentered": true,
+    "topInside": true,
+    "viewport": [
+      768,
+      1024
+    ]
+  }
+]

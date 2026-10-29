@@ -1,0 +1,147 @@
+{
+  "version": "0.4.0",
+  "platform_target": "TapTap H5, portrait, one-handed",
+  "implementation_target": "Phaser 3.90.0 + TypeScript",
+  "currency": {
+    "id": "gold",
+    "storage_cap": null,
+    "collect": "automatic",
+    "rewarded_gold": {
+      "minimum": 80,
+      "calculation": "max(80, 0.6*(60 + 9*wave + mine_income + farm_income/3)), rounded up to 10",
+      "per_wave_claims": 1
+    }
+  },
+  "production_hints": {
+    "mine": "每次胜利结算，初始8金币",
+    "farm": "每三次胜利结算，初始28金币",
+    "display": "建筑下方显示实际单次产出；建造和升级面板显示前后收益，蘑菇田面板显示剩余胜利次数"
+  },
+  "balance_0_3_1": {
+    "enemy_hp_and_attack_multiplier": 0.85,
+    "shield_damage_reduction": 0.1,
+    "early_wave_counts": [
+      8,
+      11,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28
+    ],
+    "enemy_growth_per_wave_after_four": 0.1
+  },
+  "map": {
+    "enemy_entry": "north",
+    "castle": "south end behind logistics",
+    "width": "fixed",
+    "expansion": "unlock fixed grouped sites through castle levels",
+    "counts": {
+      "castle": 1,
+      "mine": 4,
+      "farm": 4,
+      "melee": 2,
+      "ranged": 2,
+      "elite": 3,
+      "wall": 8,
+      "tower": 16
+    },
+    "wall_lines": 4,
+    "wall_segments_per_line": 2,
+    "total_sites": 40
+  },
+  "buildings": {
+    "max_level": null,
+    "upgrades": "金币无限升级，默认成长后额外选择强化，永久累加；第五档之后沿用外观",
+    "per_level_appearance_changes": true,
+    "after_wave": "包括失败：建筑免费统一恢复，普通军队和精英补齐",
+    "castle_defeat": "本轮失败；主线不推进；保留成长和已获得金币",
+    "visual_stages": 5
+  },
+  "barracks": {
+    "unlock_castle_levels": {
+      "melee": [
+        1,
+        3
+      ],
+      "ranged": [
+        2,
+        4
+      ]
+    },
+    "base_capacity": 3,
+    "capacity_per_upgrade": "每级+1，达到12人后继续提升属性",
+    "max_base_capacity": 12,
+    "extra_capacity_per_choice": 1,
+    "max_capacity_all_extra_choices": 12,
+    "baseline_upgrade": "增加1个编制，同时增加基础攻击和生命的22%",
+    "selection": "未满编制时可选额外增兵，满编后提供属性强化",
+    "respawn": {
+      "cost": 0,
+      "queue": "one serial queue per barracks",
+      "seconds_initial_test": 7,
+      "destroyed_barracks": "pause queue; surviving soldiers continue fighting"
+    }
+  },
+  "lord": {
+    "upgrade_location": "bottom UI button",
+    "cost_currency": "gold",
+    "major_visual_stages": 5,
+    "visual_stage_levels": [
+      1,
+      6,
+      11,
+      16,
+      21
+    ],
+    "upgrade_cap": null,
+    "upgrade_choices": 3
+  },
+  "long_term": "波次持续推进，魔王和建筑无限升级，失败重试当前主线波次，不设补给战",
+  "delivery": "本地可玩版本，0.4.0 验收见 balance-0.4.0-status.json",
+  "new_game": {
+    "built": [
+      "castle",
+      "melee-0"
+    ],
+    "gold": 240,
+    "guided_builds": [
+      "mine-0",
+      "tower-3-1",
+      "wall-3-0"
+    ]
+  },
+  "combat_v4": {
+    "enemy_target": "nearest living built structure; no chasing distant friendly units",
+    "spawning": "multi-person squads at least 96 world pixels above the viewport",
+    "first_three_wave_counts": [
+      8,
+      11,
+      14
+    ],
+    "first_three_batch_interval_seconds": 15,
+    "friendly_regeneration_fraction_per_second": 0.008,
+    "towers": "behind the walls"
+  },
+  "not_yet_implemented": [
+    "真实TapTap广告Provider和真机广告联调，用户选择稍后授权"
+  ],
+  "remaining_validation": [
+    "移动设备性能",
+    "长时间数值平衡",
+    "用户对90%视觉目标的主观验收"
+  ],
+  "economy": {
+    "win": "34 + wave * 4 + (boss wave ? 50 : 0)",
+    "kill": {
+      "ordinary": 1,
+      "boss": 10
+    },
+    "production": "base(8/28) * (1 + .65*(level-1)) * (1+.25*incomeBuffs) * (1+.005*(lord-1))",
+    "price": "base * (1+.6*level+.15*level^2)",
+    "target": "不看广告合理经营可以通过但资源紧张；广告提供升级和容错；需要后续长期实测"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "checked_date": "2026-10-28",
+  "target": "H5",
+  "finding": "官方公开文档存在不同口径，未确认H5独立硬上限；不可承诺允许100MB，也不可直接把普通小游戏4M首包限制套给H5",
+  "sources": [
+    {"url": "https://developer.taptap.cn/minigameapidoc/tap-operation/operation-standards/review-standards/", "section": "5.2.2", "claim": "小游戏包体大小限制为20MB以下"},
+    {"url": "https://developer.taptap.cn/minigameapidoc/dev/tutorial/performance/launch/launch-speed/", "section": "精简首包资源", "claim": "普通小游戏首包不超过4M，所有分包总大小不超过60M"},
+    {"url": "https://developer.taptap.cn/minigameapidoc/dev/engine/unity-adaptation/guide/", "section": "阶段四", "claim": "Unity小游戏压缩后首包小于60M"},
+    {"url": "https://developer.taptap.cn/minigameapidoc/quick-start/mcp-guide/mcp-setup/", "claim": "MCP当前适用H5，页面未提供包体上限"}
+  ],
+  "project_decision": {
+    "compressed_upload_zip_less_than_bytes": 20000000,
+    "uncompressed_shipping_files_less_than_bytes": 20000000,
+    "preferred_total_bytes": 15000000,
+    "preferred_initial_transfer_bytes": 4000000,
+    "verification": "发布前依据H5控制台或上传校验进一步确认；现阶段按更小的自定预算继续开发"
+  },
+  "indicative_budget_bytes": {"code_and_runtime": 2000000, "sprite_atlases": 4000000, "effects": 1000000, "audio": 2000000, "ui_and_fonts": 500000, "data": 500000, "reserve": 5000000}
+}

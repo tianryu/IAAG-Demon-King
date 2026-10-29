@@ -1,0 +1,43 @@
+{
+  "click": {
+    "source": "assets\\source\\audio\\interface\\Audio\\click_001.ogg",
+    "seconds": 0.1,
+    "sampleRate": 44100
+  },
+  "upgrade": {
+    "source": "assets\\source\\audio\\interface\\Audio\\confirmation_002.ogg",
+    "seconds": 0.539,
+    "sampleRate": 44100
+  },
+  "hit": {
+    "source": "assets\\source\\audio\\rpg\\OGG\\knifeSlice.ogg",
+    "seconds": 0.6,
+    "sampleRate": 48000
+  },
+  "shoot": {
+    "source": "assets\\source\\audio\\rpg\\OGG\\cloth1.ogg",
+    "seconds": 0.661,
+    "sampleRate": 48000
+  },
+  "coin": {
+    "source": "assets\\source\\audio\\rpg\\OGG\\handleCoins2.ogg",
+    "seconds": 0.338,
+    "sampleRate": 48000
+  },
+  "start": {
+    "source": "assets\\source\\audio\\interface\\Audio\\open_001.ogg",
+    "seconds": 0.148,
+    "sampleRate": 44100
+  },
+  "win": {
+    "source": "assets\\source\\audio\\interface\\Audio\\confirmation_004.ogg",
+    "seconds": 0.49,
+    "sampleRate": 44100
+  },
+  "lose": {
+    "source": "assets\\source\\audio\\interface\\Audio\\error_005.ogg",
+    "seconds": 0.5,
+    "sampleRate": 44100
+  },
+  "music": "public/assets/audio/dungeon.mp3\nsamplerate: 48000 Hz\nchannels: 2\nduration: 31.237 s\nformat: MPEG-1/2 Audio [MP3]\nsubtype: MPEG Layer III [MPEG_LAYER_III]"
+}

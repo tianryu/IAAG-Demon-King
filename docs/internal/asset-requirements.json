@@ -1,0 +1,16 @@
+{
+  "visibility": "internal planning; user requested not to display this inventory",
+  "art_master": "../concepts/01-preparation-approved.png",
+  "units": ["哥布林魔王5阶段外观", "近战哥布林", "弓箭哥布林", "精英哥布林", "人类士兵", "人类弓手", "盾兵", "骑士长Boss"],
+  "unit_actions": ["待机", "移动", "近战攻击或远程攻击", "受击", "倒下", "复活"],
+  "buildings": ["魔王城堡", "矿场", "蘑菇农场", "近战营", "远程营", "精英营", "左右城墙段", "箭塔", "可建地基", "建筑被毁状态"],
+  "environment": ["草地", "纵向土路", "森林边界", "小块草簇", "岩石", "木栅栏", "旗帜"],
+  "ui": ["金币", "王冠", "剑", "弓", "盾", "增兵头像", "生命条", "暂停", "摇杆", "按钮与强化卡底板", "复活计时"],
+  "effects_policy": "使用网络上授权清晰的现成免费像素特效，不生成特效资产；运行时只做播放、缩放、染色、定位",
+  "effects": ["近战挥击", "命中火花", "箭矢", "尘土", "升级提示", "复活提示", "金币获得", "Boss技能命中", "建筑损毁烟尘"],
+  "sources": [
+    {"id": "codemanu-pixel-effects", "author": "CodeManu", "url": "https://opengameart.org/content/free-pixel-effects-pack", "license": "CC0", "frames": "100x100", "state": "license verified on author page; inspect downloaded sprites before mapping"},
+    {"id": "tbbk-slash", "author": "tbbk", "url": "https://opengameart.org/content/pixel-art-sword-slash-effect", "license": "CC0", "frames": "64x47", "state": "license verified on author page; inspect actual frame count"},
+    {"id": "kenney-particles", "author": "Kenney", "url": "https://opengameart.org/content/particle-pack-80-sprites", "license": "CC0", "state": "downloaded and packaged license verified; held in reserve after pixel-style change"}
+  ]
+}

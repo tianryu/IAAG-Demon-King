@@ -1,0 +1,23 @@
+我是哥布林：魔王 资源来源
+
+Buildings and characters: generated for this project using the built-in image generation tool, based on the approved project concept image. Prompts are retained in the source project at docs/concepts/runtime-atlas-prompts.json.
+
+Pixel effects: CodeManu / Davit Masia, Free Pixel Effects Pack (2018)
+Source: https://opengameart.org/content/free-pixel-effects-pack
+License: CC0 / Public Domain, author's README included in codemanu-pixel-effects.txt.
+Used: weapon hit, casting, magic hit, protection circle.
+
+Phaser 3.90.0: https://phaser.io
+License: MIT, included in phaser-MIT.txt.
+
+Ground graphics and responsive layout: project code.
+UI frames, buttons, joystick, icons, title logo and building level flag: generated as independent transparent PNG atlases/assets with the built-in imagegen tool. Source bitmaps are preserved; the renderer selects frames for nine-slice scaling.
+UI prompts and output paths: docs/concepts/v4-ui-prompts.json in the source project.
+V3 building levels and character animation atlases: generated with the built-in imagegen tool.
+Production prompts: docs/concepts/v3-production-prompts.json in the source project.
+Music and effects: CC0 audio, full mapping and licenses in AUDIO.txt and Kenney license files.
+
+Chinese pixel font: Ark Pixel Font, TakWolf.
+Source: https://github.com/TakWolf/ark-pixel-font
+Downloaded from author's official site: https://ark-pixel-font.takwolf.com/ark-pixel-12px-proportional-zh_hans.otf.woff2
+License: SIL Open Font License 1.1, included in ark-pixel-OFL.txt.

@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "date": "2026-10-28",
+  "conceptReview": "approved by user, implemented with flatter pixel UI",
+  "completed": [
+    "独立像素图标、平面面板、低文字量界面",
+    "魔王成长在左、摇杆居中、附近建筑等级及升级在右、迎敌在顶部",
+    "三个普通强化选项和一个广告全选选项完整同屏",
+    "8 类建筑各 5 级共 40 幅外观",
+    "魔王 5 阶段外观，随阶段增加体型和护甲",
+    "14 类角色共 112 帧素材，28 组行走和攻击动画",
+    "CC0 地牢芯片背景音乐及 8 个交互和战斗音效",
+    "金币广告、免费全选、失败转胜利奖励和防重复发奖"
+  ],
+  "verification": {
+    "typecheckAndProductionBuild": "passed",
+    "unitTests": {"passed": 17, "failed": 0},
+    "release": {"files": 28, "uncompressedBytes": 10123395, "budgetBytes": 20000000, "qaCodeIncluded": false},
+    "responsiveBrowserViewports": [[320,480],[320,568],[360,640],[390,844],[430,932],[768,1024]],
+    "fourChoicesInsideViewport": true,
+    "upgradeModalScrollRequired": false,
+    "minimumChoiceHeightCssPixels": 44,
+    "joystickCentered": true,
+    "lordAndNearbyBuildingOnOppositeSidesWithoutOverlap": true,
+    "layoutEvidence": "layout-v3.json",
+    "audio": {"decodedEffects": 8, "musicLoops": true, "muteAndResume": true, "playbackError": 0},
+    "battle": {"test": "isolated QA save, fully built territory, wave 10 Boss", "friendlyUnits": 48, "result": "victory", "nextWave": 11, "simulationSeconds": 92.9},
+    "rewardTests": [
+      "zero gold free-all upgrades barracks once and applies all three displayed buffs",
+      "gold reward cannot repeat in the same wave",
+      "defeat reward changes the result to victory, advances wave once and restores territory",
+      "cancelled, failed, late and duplicated ad callbacks never produce extra rewards"
+    ],
+    "productionBrowserErrorsAndWarnings": []
+  },
+  "limitations": [
+    "TapTap authorization deferred by user; real ad delivery has not been verified",
+    "Reward completion flow verified with explicitly enabled development-only mock provider",
+    "Responsive checks ran in desktop browser viewports, not physical phones",
+    "Visual consistency reviewed manually; no numerical 90 percent similarity claim"
+  ],
+  "evidence": {
+    "gameplay": "screenshots/v3-gameplay.jpg",
+    "upgrade": "screenshots/v3-upgrade.jpg",
+    "menu": "screenshots/v3-menu.jpg",
+    "assetPrompts": "concepts/v3-production-prompts.json",
+    "audioLicense": "../public/licenses/AUDIO.txt"
+  },
+  "supersedes": "v2-review-status.json"
+}

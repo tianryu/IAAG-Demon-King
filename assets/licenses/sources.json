@@ -1,0 +1,5 @@
+[
+  {"id":"codemanu-pixel-effects","author":"CodeManu","url":"https://opengameart.org/content/free-pixel-effects-pack","license":"CC0","local_license":"codemanu-pixel-effects.txt","note":"Original README also explicitly permits personal and commercial use. Four candidate sheets copied to public/assets/fx; runtime integration pending."},
+  {"id":"tbbk-slash","author":"tbbk","url":"https://opengameart.org/content/pixel-art-sword-slash-effect","license":"CC0","local_license":"tbbk-slash.txt","note":"Source-only candidate; confirm it matches the chosen coarse pixel scale before shipping."},
+  {"id":"kenney-particles","author":"Kenney","url":"https://opengameart.org/content/particle-pack-80-sprites","license":"CC0","local_license":"kenney-particles.txt","note":"Source-only reserve after pixel-art direction approval. Full pack excluded from release."}
+]

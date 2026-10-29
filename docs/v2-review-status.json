@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-28",
+  "completed": [
+    "方舟像素字体替换，OFL许可随包分发",
+    "主菜单、继续游戏、新游戏确认、退出保存页",
+    "紧凑升级弹窗，三个普通选项及置灰的全选广告选项同屏"
+  ],
+  "verified": {
+    "build": true,
+    "rulesTestsPassed": 13,
+    "releaseUncompressedBytes": 4421570.0,
+    "fontLoadedInBrowser": true,
+    "viewports": [
+      {
+        "width": 320,
+        "height": 480,
+        "minChoiceHeight": 44,
+        "noOverflow": true
+      },
+      {
+        "width": 320,
+        "height": 568,
+        "minChoiceHeight": 46,
+        "noOverflow": true
+      },
+      {
+        "width": 360,
+        "height": 640,
+        "minChoiceHeight": 46,
+        "noOverflow": true
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "minChoiceHeight": 52,
+        "noOverflow": true
+      }
+    ],
+    "browserMenuFlow": [
+      "继续游戏",
+      "暂停",
+      "返回主菜单",
+      "退出游戏",
+      "返回主菜单",
+      "新游戏",
+      "保留进度"
+    ]
+  },
+  "concepts": {
+    "status": "awaiting_user_visual_review",
+    "ui": "concepts/04-ui-redesign-v2.png",
+    "lord": "concepts/05-lord-evolution-v2.png",
+    "notes": [
+      "概念图，不是当前可玩截图",
+      "左侧魔王，居中摇杆，右侧附近建筑，顶部迎敌",
+      "魔王五阶段从小哥布林到魁梧的重甲魔王，轮廓差异明显",
+      "UI低文字量，粗像素，无中点分隔符"
+    ]
+  },
+  "pendingAfterConceptReview": [
+    "拆分生成独立像素UI素材并接入新布局",
+    "8类建筑各5级共40幅外观，等级变外观但强化选项不改变建筑种类",
+    "所有角色行走和攻击动画",
+    "替换五阶段魔王素材",
+    "新增三类广告奖励的游戏逻辑和防重复发奖",
+    "待用户授权后接入TapTap真实广告并实机验收"
+  ],
+  "adsDraft": {
+    "status": "proposal_only_not_implemented",
+    "auth": "user_deferred",
+    "gold": "建议奖励为正常一波平均金币收益的60%，向上取整到10，最低80金币；建议每主线波次领取一次",
+    "allChoices": "免费升一级并获得本次显示的3项强化及原基础成长；不是连升3级。建议与魔王成长共用每主线波次一次额度",
+    "defeat": "完播后转为本波胜利，正常结算和修复。建议每5个主线波次一次，避免连续跳过战斗",
+    "unavailable": "当前全选按钮置灰，真实广告未接入，不能领取奖励"
+  },
+  "screenshots": [
+    "screenshots/v2-upgrade-no-scroll.jpg",
+    "screenshots/v2-main-menu.jpg"
+  ],
+  "supersededBy": "v3-implementation-status.json"
+}

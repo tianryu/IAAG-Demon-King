@@ -1,0 +1,50 @@
+{
+  "version": "0.3",
+  "updated": "2026-10-28",
+  "game": "我是哥布林：魔王",
+  "approved_reference": "concepts/01-preparation-approved.png",
+  "status": "Runtime implemented with generated reusable atlases. Actual screenshots retained in docs/screenshots. Visual checklist reviewed; no quantified 90% similarity claim.",
+  "art_direction": {
+    "style": "可爱卡通粗像素，干净边缘，低噪点，有限配色",
+    "reference_grid": "约216×384逻辑像素的视觉颗粒；概念图不是可直接导入的规范像素素材",
+    "runtime_grid_candidate": [240, 426],
+    "sampling": "nearest-neighbor; no texture smoothing",
+    "camera": "固定朝向的俯视镜头，跟随玩家纵向移动",
+    "colors": ["嫩绿草地", "深青绿树林", "暖黄土路", "深绿界面", "陶红近战营", "绿顶远程营", "紫色魔王装饰", "金色强调"],
+    "shading": "每种材质以2至3档明暗表现；少量草簇；不用抖色、颗粒噪点或写实石纹",
+    "character": "大头短身、绿皮肤、尖耳、点状眼睛；魔王戴小王冠和紫披风",
+    "building_level_visuals": "共用外观，通过等级与界面数值反馈；只有魔王重大成长节点换造型"
+  },
+  "screens": [
+    {"id": "preparation", "file": "concepts/01-preparation-approved.png", "focus": "城堡位于生产区之后；成组建筑；移动与迎敌"},
+    {"id": "battle", "file": "concepts/02-frontline-battle.png", "focus": "镜头跟随至北方前线；敌方Boss与补员提示；少量清晰特效"},
+    {"id": "upgrade", "file": "concepts/03-barracks-upgrade.png", "focus": "竖向排列三项强化，显示金币花费与默认成长；选择时暂停游戏"}
+  ],
+  "ui": {
+    "top": ["金币", "当前波次", "暂停", "城堡生命"],
+    "battle_extra": "Boss出现时显示名称与生命条",
+    "bottom": ["浮动摇杆", "魔王按钮", "仅备战时显示迎敌按钮"],
+    "upgrade": "大尺寸竖排三选一；只用图标、短标签、关键数值；触控区域以屏幕CSS像素校验，至少约44px；文字由实际UI绘制，不从概念图截取",
+    "copy_policy": "优先图标和数字；必要时保留2至4字短标签；效果范围必须明确；不靠颜色单独表达含义",
+    "forbidden_display_characters": ["U+00B7"],
+    "upgrade_labels": ["近战营", "基础", "三选一", "增兵", "攻击", "生命"],
+    "upgrade_values_example": {"level": "1 → 2", "cost": "80", "baseline": ["+1", "+10%", "+10%"], "choices": ["+1", "+25%", "+30%"]},
+    "pause_rule": "升级、暂停菜单与应用切后台时停止战斗推进"
+  },
+  "resource_policy": {
+    "release_total_bytes_max_exclusive": 20000000,
+    "release_target_bytes": 15000000,
+    "startup_transfer_target_bytes": 4000000,
+    "basis": "项目自定保守预算，不能解释为已确认的H5平台硬限制",
+    "runtime_assets": "只打包实际使用的低分辨率图集、音频和代码；建筑升级共用造型；角色共用动作与装备层；地形重复平铺",
+    "exclude_from_release": ["docs/concepts", "docs/internal", "assets/source", "完整下载压缩包", "原始大图", "PSD", "source maps", "node_modules"],
+    "font": "不打包完整大型中文字库；确定实际文字后选择系统字体或授权清晰的子集字体"
+  },
+  "visual_acceptance": {
+    "user_target": "90%以上视觉相似度",
+    "measurement_status": "实机已完成并保存截图，逐项人工对照；未量化相似度，不宣称90%已达标",
+    "method": "在同一画幅、镜头位置与游戏状态下对照截图；分别检查构图、像素颗粒、配色、建筑轮廓、角色比例、界面位置与文字可读性",
+    "priority": ["像素艺术清晰度", "建筑与角色一致", "相同布局", "界面位置与尺寸", "低噪点与克制特效"],
+    "note": "人工视觉验收目标，不等同于整张图片像素匹配率；概念图片不得冒充实机截图"
+  }
+}

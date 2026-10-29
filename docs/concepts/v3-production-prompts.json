@@ -1,0 +1,30 @@
+{
+  "tool": "built-in imagegen",
+  "purpose": "Runtime atlases based on approved designs, flatter chunky pixel style",
+  "jobs": [
+    {
+      "key": "buildings-v3",
+      "prompt": "Production game sprite atlas. VERY FLAT LOW RESOLUTION CHUNKY PIXEL ART, clean rectangular pixel clusters, no gradients no lighting effects no noise no texture dithering, only 2 flat tones per material, consistent dark 1-pixel-equivalent outline. Cute fantasy goblin game. Orthographic front view with a small top view, NOT isometric. Transparent background, no ground shadows, no labels no numbers no grid lines. Exact regular grid occupying entire canvas with equal cells, all sprites centered inside cells with transparent padding and consistent bottom baseline. Every sprite must stay entirely inside its own cell. Sprite detail should look as if drawn at 32x32 (units) or 48x48 (buildings) then nearest-neighbor enlarged. Create exactly 40 building sprites, canvas 1536x960, EXACTLY EIGHT COLUMNS and FIVE ROWS, 192x192 cells. Columns left to right: purple-roof goblin castle, gold mine, purple mushroom farm, red melee barracks tent, green archer barracks tent, purple elite barracks, wooden/stone wall segment, goblin arrow tower. Rows top to bottom are levels 1,2,3,4,5. Same type remains recognizable, each level visibly changes: simple wood; reinforced wood; grey stone foundation; stronger stone and purple banners; majestic gold trim and crown flags. Castle simple hut grows into multi-tower fortress, walls wooden stakes to stone battlements, towers single platform to armored tower. Keep all sprites usable as centered game art, no background. Flatten the attached concept style and greatly simplify small details.",
+      "refs": [
+        "C:/Users/田煜/Desktop/Godot/Games/我是大魔王/docs/concepts/04-ui-redesign-v2.png"
+      ],
+      "output": "C:/Users/田煜/Desktop/Godot/Games/我是大魔王/public/assets/art/buildings-v3.png"
+    },
+    {
+      "key": "lords-v3",
+      "prompt": "Production game sprite atlas. VERY FLAT LOW RESOLUTION CHUNKY PIXEL ART, clean rectangular pixel clusters, no gradients no lighting effects no noise no texture dithering, only 2 flat tones per material, consistent dark 1-pixel-equivalent outline. Cute fantasy goblin game. Orthographic front view with a small top view, NOT isometric. Transparent background, no ground shadows, no labels no numbers no grid lines. Exact regular grid occupying entire canvas with equal cells, all sprites centered inside cells with transparent padding and consistent bottom baseline. Every sprite must stay entirely inside its own cell. Sprite detail should look as if drawn at 32x32 (units) or 48x48 (buildings) then nearest-neighbor enlarged. Create exactly 40 animated goblin lord sprites, canvas1536x960, EXACTLY EIGHT COLUMNS and FIVE ROWS 192x192 cells. Each row SAME CHARACTER, eight chronological animation frames. Columns1-4 walking: left step, neutral, right step, neutral. Columns5-8 attack: windup weapon raised behind, weapon overhead, strong forward downswing with arm extended, recover. No detached FX trails. Face front-right (3/4front), feet baseline same. Row1 tiny cute green goblin small crown purple scarf wooden club. Row2 visibly broad muscular goblin leather vest and iron mace. Row3 heavy armored green chief silver shoulders purple tabard large axe. Row4 very broad tyrant black/purple armor horned crown enormous double axe. Row5 mighty muscular goblin king massive gold/purple heavy armor horned gold crown huge square hammer. Keep row1 visually smaller than row5 but all fit same cell. Follow five stages in reference but simplify severely to clear 32x32 chunky pixel silhouettes. Ensure each row all8frames same face/outfit/weapon/size.",
+      "refs": [
+        "C:/Users/田煜/Desktop/Godot/Games/我是大魔王/docs/concepts/05-lord-evolution-v2.png"
+      ],
+      "output": "C:/Users/田煜/Desktop/Godot/Games/我是大魔王/public/assets/art/lords-v3.png"
+    },
+    {
+      "key": "troops-v3",
+      "prompt": "Production game sprite atlas. VERY FLAT LOW RESOLUTION CHUNKY PIXEL ART, clean rectangular pixel clusters, no gradients no lighting effects no noise no texture dithering, only 2 flat tones per material, consistent dark 1-pixel-equivalent outline. Cute fantasy goblin game. Orthographic front view with a small top view, NOT isometric. Transparent background, no ground shadows, no labels no numbers no grid lines. Exact regular grid occupying entire canvas with equal cells, all sprites centered inside cells with transparent padding and consistent bottom baseline. Every sprite must stay entirely inside its own cell. Sprite detail should look as if drawn at 32x32 (units) or 48x48 (buildings) then nearest-neighbor enlarged. Create exactly72 animated character sprites, canvas1536x1728 EXACTLY EIGHT COLUMNS and NINE ROWS of192x192cells. Each row same character. Columns1-4 walk: leftstep,neutral,rightstep,neutral. Columns5-8 attack: windup,raiseweapon,release/strike,recover. For bow draw aim release lower; for wizard raise staff cast lower. Facing front-right 3/4front. Feet same baseline in eachcell. Row1 cute small green goblin with little sword/brown tunic. Row2 cute green goblin archer green hood/bow. Row3 tall green elite goblin purple helmet heavy axe. Row4 cute human kingdom soldier blue tunic/sword. Row5 cute human archer blue hood bow. Row6 squat human shieldman steel helmet giant blue shield/sword. Row7 distinct Boss knight white silver armor blue cape massive sword. Row8 distinct Boss wizard red hood golden staff white beard. Row9 distinct Boss paladin white gold helmet large gold shield and hammer. Tiny dot eyes all nonviolent cute characters. NO other sprites or rows. Strong clear chunky blocks with maximum3 flat colors per costume, no rounded rendering, no anti-aliasing.",
+      "refs": [
+        "C:/Users/田煜/Desktop/Godot/Games/我是大魔王/docs/concepts/04-ui-redesign-v2.png"
+      ],
+      "output": "C:/Users/田煜/Desktop/Godot/Games/我是大魔王/public/assets/art/troops-v3.png"
+    }
+  ]
+}

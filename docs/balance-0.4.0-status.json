@@ -1,0 +1,68 @@
+{
+  "version": "0.4.0",
+  "date": "2026-10-29",
+  "tests": {
+    "passed": 30,
+    "failed": 0
+  },
+  "changes": {
+    "unlimitedLevels": [
+      "lord",
+      "all buildings"
+    ],
+    "visuals": {
+      "buildingStages": 5,
+      "lordLevels": [
+        1,
+        6,
+        11,
+        16,
+        21
+      ]
+    },
+    "barracksUnitCap": 12,
+    "supplyBattles": false,
+    "adGold": "Dynamic, minimum 80, once per main wave",
+    "ordinaryKillGold": 1,
+    "bossKillGold": 10,
+    "baseWinGold": "34 + 4*wave, boss waves +50",
+    "initialProduction": {
+      "mine": 8,
+      "farm": 28,
+      "farmEveryWins": 3
+    },
+    "enemyHpAttackMultiplier": 0.85,
+    "shieldArmor": 0.1,
+    "facing": "Horizontal direction changes only while moving horizontally; idle and vertical input retain facing",
+    "incomeDisplay": "On-map per-settlement labels and upgrade income projections"
+  },
+  "browserChecks": {
+    "noAdsCampaign": {
+      "fixture": "src/qa.ts 测试：无广告十波",
+      "speed": 8,
+      "movement": "Lord parked behind the front wall each wave; returns to castle after revival",
+      "resultFile": "balance-0.4.0-no-ads.json",
+      "wavesWon": 10,
+      "bossCastleHealthPercent": 29,
+      "bossDestroyedBuildings": 8
+    },
+    "levelFiveToSix": "Passed. Tower paid upgrade to 6, next offer 6 to 7; no missing textures or console warnings",
+    "facing": {
+      "leftRelease": "move [0,0], facing left",
+      "verticalAfterLeft": "position 69,1083, move [0,0], facing left"
+    },
+    "production": "Mine 8 each win; farm 28 each 3 wins; level 2 preview 46 to 58; countdown 2 victories",
+    "smallScreen": "320x480 upgrade dialog all four buttons 44px, no overflow"
+  },
+  "saveCompatibility": "Existing gold, upgrades and ad claims preserved; no production save reset during testing",
+  "build": {
+    "files": 32,
+    "uncompressedBytes": 13320859,
+    "limitBytes": 20000000
+  },
+  "limitations": [
+    "Campaign uses an isolated in-memory save and accelerated desktop simulation; it does not guarantee every strategy wins",
+    "Long-term wave balance and physical mobile performance still need playtesting",
+    "Real TapTap ads still await user-deferred account authorization"
+  ]
+}

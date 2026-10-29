@@ -1,0 +1,51 @@
+{
+  "version": "0.3.0",
+  "game": "我是哥布林：魔王",
+  "date": "2026-10-29",
+  "completed": [
+    "独立生成的 UI 面板、按钮、摇杆和图标图集，通过九宫格缩放适配布局",
+    "主菜单和加载页采用新的像素艺术字标",
+    "主菜单装饰区可压缩，问号与声音按钮保留完整点击区域",
+    "摇杆取消外形裁切的命中限制，增加窗口级拖动跟踪、指针归属和捕获失败处理",
+    "修复迎敌重复文字及金币广告图标的文字绑定",
+    "建筑等级显示在建筑旁的独立像素旗帜上",
+    "新开局仅提供城堡和 3 人近战兵营，其他建筑均需建造",
+    "五步引导：移动、金矿、箭塔、城墙、迎敌，可跳过且进度可保存",
+    "去掉常态走近建筑提示",
+    "敌军在视野外按队列集结，优先攻击最近的已建且存活的建筑",
+    "箭塔移到城墙后方",
+    "前 3 波为 8、11、14 名敌人，早期队伍间隔 15 秒，后续逐步增强，无限波次，每 10 波 Boss",
+    "魔王与士兵每秒恢复最大生命的 0.8%，暂停和死亡时不恢复",
+    "坚甲选项明确显示受到伤害降低 12%"
+  ],
+  "verification": {
+    "buildAndTypecheck": "passed",
+    "testsPassed": 25,
+    "testsFailed": 0,
+    "uncompressedBytes": 13320192,
+    "budgetBytes": 20000000,
+    "menuViewports": [[320,480],[320,568],[360,640],[390,844],[430,932],[768,1024]],
+    "menuButtonsEntirelyVisible": true,
+    "allFourUpgradeChoicesWithoutScrolling": true,
+    "armorTextFits320x480": true,
+    "joystick": "six consecutive native mouse drags, including a corner start, outside release and resume after pause; movement responded and returned to zero",
+    "onboarding": "complete five-step flow exercised in isolated QA save; remaining gold 70",
+    "balance": [
+      {"wave": 1, "setup": "tutorial buildings only, no upgrades", "result": "victory", "seconds": 30.7, "castleHp": 1300, "remainingFriendlyUnitsIncludingHero": 2},
+      {"wave": 2, "setup": "same buildings, no upgrades", "result": "victory", "seconds": 34.6, "castleHp": 1300},
+      {"wave": 5, "setup": "jumped from wave 2 with no upgrades", "result": "defeat", "seconds": 44.7}
+    ],
+    "spawnEvidence": "Each recorded squad was spawned at least 96 world pixels above the camera; all members created in the same batch",
+    "browserWarningsAndErrors": [],
+    "browserEvidence": "v4-browser-checks.json"
+  },
+  "compatibility": "Existing saves and buildings are preserved. New starting territory and onboarding apply to new games. Storage key remains unchanged.",
+  "limitations": [
+    "Browser viewport and mouse-drag checks are not physical mobile-device touch testing",
+    "Long-run balance still requires extended playtesting",
+    "Real TapTap advertising remains pending the authorization deferred by the user"
+  ],
+  "assetsAndPrompts": "concepts/v4-ui-prompts.json",
+  "screenshot": "screenshots/v4-menu.jpg",
+  "release": "../release/i-am-goblin-overlord-h5-v0.3.0.zip"
+}

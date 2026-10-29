@@ -1,0 +1,13 @@
+export type SoundCue='click'|'upgrade'|'hit'|'shoot'|'coin'|'start'|'win'|'lose';
+/** HTML media for looping music, Web Audio for short overlapping cues. No autoplay before input. */
+export class GameAudio{
+ private context?:AudioContext;private buffers=new Map<string,AudioBuffer>();private loading?:Promise<void>;private last=new Map<string,number>();private unlocked=false;private hidden=false;private enabled=true;private ducked=false;private battle=false;
+ private music=new Audio('/assets/audio/dungeon.mp3');
+ constructor(){this.music.loop=true;this.music.preload='none';this.music.volume=.16;document.addEventListener('visibilitychange',()=>{this.hidden=document.hidden;this.sync()});window.addEventListener('blur',()=>{this.hidden=true;this.sync()});window.addEventListener('focus',()=>{this.hidden=document.hidden;this.sync()});}
+ configure(enabled:boolean,battle=false,ducked=false){if(this.enabled===enabled&&this.battle===battle&&this.ducked===ducked)return;this.enabled=enabled;this.battle=battle;this.ducked=ducked;this.sync();}
+ unlock(){this.unlocked=true;this.hidden=document.hidden;try{this.context??=new AudioContext();void this.context.resume().catch(()=>{});this.loading??=this.load();}catch{}this.sync();}
+ status(){return {playing:!this.music.paused,seconds:+this.music.currentTime.toFixed(2),ready:this.music.readyState,decoded:this.buffers.size,error:this.music.error?.code||0,enabled:this.enabled};}
+ private sync(){this.music.volume=this.ducked?.07:this.battle?.19:.13;if(!this.enabled||this.hidden||!this.unlocked){this.music.pause();if(this.context?.state==='running')void this.context.suspend().catch(()=>{});return;}if(this.context?.state==='suspended')void this.context.resume().catch(()=>{});if(this.music.paused)void this.music.play().catch(()=>{});}
+ private async load(){const files=['click','upgrade','hit','shoot','coin','start','win','lose'];await Promise.all(files.map(async key=>{try{const r=await fetch(`/assets/audio/${key}.wav`);if(!r.ok)return;this.buffers.set(key,await this.context!.decodeAudioData(await r.arrayBuffer()));}catch{}}));}
+ play(key:SoundCue){if(!this.enabled||this.hidden||!this.unlocked||!this.context)return;const now=this.context.currentTime;const spacing=key==='hit'?.12:key==='shoot'?.15:.08;if(now-(this.last.get(key)??-10)<spacing)return;const buffer=this.buffers.get(key);if(!buffer)return;this.last.set(key,now);const source=this.context.createBufferSource(),gain=this.context.createGain();source.buffer=buffer;gain.gain.value=key==='hit'?.13:key==='shoot'?.12:key==='click'?.25:.3;source.connect(gain).connect(this.context.destination);source.onended=()=>{source.disconnect();gain.disconnect()};source.start();}
+}

@@ -1,0 +1,10 @@
+Asset: Pixel art sword slash effect
+Author: tbbk
+Source: https://opengameart.org/content/pixel-art-sword-slash-effect
+Download: https://opengameart.org/sites/default/files/pixel_art_sword_slash_sprites.png
+License: CC0 1.0 Universal, as stated on the author upload page.
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Verified: 2026-10-28
+Original file preserved under assets/source/tbbk-slash/.
+Frame canvas specified by author: 64 x 47.
+Status: candidate in source archive; not yet shipped or animated in a running game.
